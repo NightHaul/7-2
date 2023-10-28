@@ -16,8 +16,8 @@ class PurchaseController extends Controller
     {
         $user = auth()->user();
         $purchaseuser = Purchase::where('user_id', $user->id)
-        ->orderBy('created_at', 'desc') // created_at カラムで降順ソート
-        ->get();
+            ->orderBy('created_at', 'desc') // created_at カラムで降順ソート
+            ->get();
 
         $purchaseData = [];
 
@@ -29,9 +29,7 @@ class PurchaseController extends Controller
                     'itemName' => $item->name,
                     'itemCreate' => $item->created_at,
                 ];
-
             }
-
         }
         return view('purchase')->with('purchaseData', $purchaseData);
     }

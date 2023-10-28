@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+
     </x-slot>
 
     <div class="py-12">
@@ -17,7 +15,7 @@
 
                     <div class="buy_name">{{ $item->name }}</div>
 
-                    {{-- <div class="buy_name">{{ $item->image_path }}</div> --}}
+
                     <img src="{{ asset($item->image_path) }}" alt="Item Image" class="list_name img_path3">
 
 

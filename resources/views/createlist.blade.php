@@ -17,42 +17,42 @@
                     @else
                         {{-- $itemsが空でない場合の処理 --}}
                         @foreach ($items as $item)
-                        <div class="flex-item">
+                            <div class="flex-item">
 
-                            <div class="fleximg2">
-                                <img src="{{ asset($item->image_path) }}" alt="Item Image"
-                                    class="list_name img_path">
-                            </div>
+                                <div class="fleximg2">
+                                    <img src="{{ asset($item->image_path) }}" alt="Item Image"
+                                        class="list_name img_path">
+                                </div>
 
-                            <p class="list_name item_name">
-                                @if (strlen($item->name) > 20)
-                                    {{ mb_substr($item->name, 0, 20) . '...' }}
-                                @else
-                                    {{ $item->name }}
-                                @endif
-                            </p>
+                                <p class="list_name item_name">
+                                    @if (strlen($item->name) > 20)
+                                        {{ mb_substr($item->name, 0, 20) . '...' }}
+                                    @else
+                                        {{ $item->name }}
+                                    @endif
+                                </p>
 
-                            <p class="list_name item_price">¥{{ $item->price }}</p>
+                                <p class="list_name item_price">¥{{ $item->price }}</p>
 
-                            <div class="Btn_">
-                                <a href="{{ route('edit', ['item' => $item->id]) }}"
-                                    id="editBtn_{{ $item->id }}">
-                                    <x-button class="ml-3">{{ __('編集') }}</x-button>
-                                </a>
-                                <form action="{{ route('destroy', $item) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a href="#" id="deleteBtn_{{ $item->id }}">
-                                        <x-button class="ml-3">{{ __('削除') }}</x-button>
+                                <div class="Btn_">
+                                    <a href="{{ route('edit', ['item' => $item->id]) }}"
+                                        id="editBtn_{{ $item->id }}">
+                                        <x-button class="ml-3">{{ __('編集') }}</x-button>
                                     </a>
-                                </form>
+                                    <form action="{{ route('destroy', $item) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a href="#" id="deleteBtn_{{ $item->id }}">
+                                            <x-button class="ml-3">{{ __('削除') }}</x-button>
+                                        </a>
+                                    </form>
+                                </div>
+
+
                             </div>
+                        @endforeach
+                    @endif
 
-
-                        </div>
-                    @endforeach
-                @endif
-                 
 
 
 

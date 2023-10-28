@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+
     </x-slot>
 
     <div class="py-12">
@@ -13,14 +11,14 @@
                     @if (empty($favoritesData))
 
                         <p class="zero">お気に入りはありません</p>
-
                     @else
                         @foreach ($favoritesData as $data)
                             <div class="flex-item">
 
                                 <div class="fleximg2">
-                                <img src="{{ asset($data['imagePath']) }}" alt="Item Image" class="list_name img_path">
-                            </div>
+                                    <img src="{{ asset($data['imagePath']) }}" alt="Item Image"
+                                        class="list_name img_path">
+                                </div>
                                 <p class="list_name item_name">
                                     @if (strlen($data['itemName']) > 20)
                                         {{ mb_substr($data['itemName'], 0, 20) . '...' }}

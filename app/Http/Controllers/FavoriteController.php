@@ -12,53 +12,30 @@ class FavoriteController extends Controller
 {
 
 
-
-    // public function favorite()
-    // {
-    //     $user = auth()->user();
-    //     $favorites = Favorite::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-
-    //     $favoritesData = [];
-
-    //     foreach ($favorites as $favorite) {
-    //         $item = Item::find($favorite->item_id);
-
-    //         if ($item) {
-    //             $favoritesData[] = [
-    //                 'imagePath' => $item->image_path,
-    //                 'itemName' => $item->name,
-    //                 'price' => $item->price,
-    //                 'itemId' => $item->id,
-    //             ];
-    //         }
-    //     }
-
-    //     return view('favorite')->with('favoritesData', $favoritesData);
-    // }
     public function favorite()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    // visible が 1 (表示) のアイテムのみを取得
-    $favorites = Favorite::join('items', 'favorites.item_id', '=', 'items.id')
-        ->where('favorites.user_id', $user->id)
-        ->where('items.visible', 1)
-        ->orderBy('favorites.created_at', 'desc')
-        ->get();
+        // visible が 1 (表示) のアイテムのみを取得
+        $favorites = Favorite::join('items', 'favorites.item_id', '=', 'items.id')
+            ->where('favorites.user_id', $user->id)
+            ->where('items.visible', 1)
+            ->orderBy('favorites.created_at', 'desc')
+            ->get();
 
-    $favoritesData = [];
+        $favoritesData = [];
 
-    foreach ($favorites as $favorite) {
-        $favoritesData[] = [
-            'imagePath' => $favorite->image_path,
-            'itemName' => $favorite->name,
-            'price' => $favorite->price,
-            'itemId' => $favorite->item_id,
-        ];
+        foreach ($favorites as $favorite) {
+            $favoritesData[] = [
+                'imagePath' => $favorite->image_path,
+                'itemName' => $favorite->name,
+                'price' => $favorite->price,
+                'itemId' => $favorite->item_id,
+            ];
+        }
+
+        return view('favorite')->with('favoritesData', $favoritesData);
     }
-
-    return view('favorite')->with('favoritesData', $favoritesData);
-}
 
     public function addToFavorites(Request $request, $item)
     {
@@ -100,6 +77,4 @@ class FavoriteController extends Controller
         // 削除が成功した場合のレスポンスを返す（Ajax用にJSON形式で返すことが一般的）
         return response()->json(['message' => 'お気に入りから削除しました']);
     }
-
-
 }
