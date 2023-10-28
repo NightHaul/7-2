@@ -51,6 +51,7 @@ Route::post('/dashboard', [SearchController::class, 'searchItem'])->name('search
 // SearchController
 
 
+// ここで表示させるだけの場合はここで書いてよいコントローラーいらない
 // NavigationController
 Route::get('/posts/dasha', [NavigationController::class, 'dasha'])
     ->name('dasha')->where('item', '\d+')->middleware('auth');
@@ -93,16 +94,15 @@ Route::delete('/posts/{item}/destroy', [PostController::class, 'destroy'])
 // PostController
 
 
-// BuyController
-Route::get('/posts/{item}/buy', [BuyController::class, 'buy'])
-    ->name('buy')->where('item', '\d+')->middleware('auth');
-
-Route::post('/posts/{item}/buy/complete', [BuyController::class, 'complete'])
-    ->name('complete')->where('item', '\d+')->middleware('auth');
-// BuyController
 
 
 // PurchaseController
+Route::get('/posts/{item}/buy', [PurchaseController::class, 'buy'])
+    ->name('buy')->where('item', '\d+')->middleware('auth');
+
+Route::post('/posts/{item}/buy/complete', [PurchaseController::class, 'complete'])
+    ->name('complete')->where('item', '\d+')->middleware('auth');
+
 Route::get('/posts/purchase', [PurchaseController::class, 'purchase'])
     ->name('purchase')->middleware('auth');
 // PurchaseController

@@ -33,4 +33,26 @@ class PurchaseController extends Controller
         }
         return view('purchase')->with('purchaseData', $purchaseData);
     }
+
+    public function buy(Item $item)
+    {
+
+        return view('buy')
+            ->with(['item' => $item]);;
+    }
+
+    public function complete(Item $item)
+    {
+
+        $purchas = new Purchase();
+        $purchas->user_id = auth()->user()->id;
+        $purchas->item_id = $item->id;
+        $purchas->save();
+
+        $item->visible = 0;
+        $item->save();
+
+        return view('complete')
+            ->with(['item' => $item]);;
+    }
 }
