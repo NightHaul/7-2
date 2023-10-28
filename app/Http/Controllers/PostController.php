@@ -102,7 +102,6 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Item $item)
     {
-        // $item = new item();
         $item->user_id = auth()->user()->id;
         $item->name = $request->name;
         $item->category = $request->category;
