@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
+
     </x-slot>
 
     <div class="py-12">
@@ -13,14 +11,17 @@
                 <div class="p-6 bg-white ">
                     <div style="background-color: black">
                         <p class="c_p"><span style="color: rgb(0, 255, 0)">*</span>全ての項目入力必須</p>
-                        <form method="post" action="{{ route('update',$item) }}" class="create_flex">
+                        <form method="post" action="{{ route('update', $item) }}" class="create_flex"
+                            enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
+
                             <div class="main">
                                 @error('image_path')
                                     <div class="error">{{ $message }}</div>
                                 @enderror
-                                <input type="file" name="image_path" value="{{old('image_path', $item->image_path)}}">
+                                <input type="file" name="image_path" id="imageInput" value="{{ old('image_path') }}">
+                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
                             </div>
                             <div class="side">
                                 <div class="name">商品名
@@ -28,14 +29,14 @@
                                     @error('name')
                                         <div class="error">{{ $message }}</div>
                                     @enderror
-                                    <input type="text" name="name" value="{{ old('name',$item->name) }}">
+                                    <input type="text" name="name" value="{{ old('name', $item->name) }}">
                                 </div>
                                 <div class="category">カテゴリー
                                     <span style="margin-right: 55px;"></span>
                                     @error('category')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                    <select name="category" value="{{old('category', $item->category)}}">
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                    <select name="category" value="{{ old('category', $item->category) }}">
                                         <option value="アパレル">アパレル</option>
                                         <option value="電化製品">電化製品</option>
                                         <option value="食品">食品</option>
@@ -47,9 +48,9 @@
                                 <div class="condition">状態
                                     <span style="margin-right: 80px;"></span>
                                     @error('condition')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                    <select name="condition" value="{{old('condition', $item->condition)}}">
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                    <select name="condition" value="{{ old('condition', $item->condition) }}">
                                         <option value="S">S</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
@@ -59,17 +60,17 @@
                                 <div class="price">値段
                                     <span style="margin-right: 80px;"></span>
                                     @error('price')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                    <input type="text" name="price" value="{{old('price', $item->price)}}">
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                    <input type="text" name="price" value="{{ old('price', $item->price) }}">
                                 </div>
 
                                 <div class="memo">
                                     商品説明
                                     @error('memo')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                    <textarea name="memo"  cols="30" rows="10">{{old('memo',$item->memo)}}</textarea>
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                    <textarea name="memo" cols="30" rows="10">{{ old('memo', $item->memo) }}</textarea>
                                 </div>
                                 <div>
                                     <x-button class="ml-3" id="btn">
@@ -85,4 +86,24 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function() {
+            var input = this;
+            var imagePreview = document.getElementById('imagePreview');
+
+            // 選択したファイルが存在する場合
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                // ファイルが読み込まれたときの処理
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // 画像プレビューを表示
+                };
+
+                // 選択されたファイルを読み込む
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    </script>
 </x-app-layout>

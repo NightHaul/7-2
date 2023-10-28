@@ -1,9 +1,5 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -37,9 +33,7 @@
                                     <div class="fleximg">
                                         <img src="{{ asset($item->image_path) }}" alt="Item Image" class="bash img">
                                     </div>
-                                    {{-- <div class="bash_memo" id="item-name">
-                                        {{ $item->name }}
-                                    </div> --}}
+
                                     <div class="bash_memo" id="item-name">
                                         <span id="item-name-content">{{ $item->name }}</span>
                                         <a href="#" id="toggle-text">...</a>
@@ -73,23 +67,21 @@
 
 
     <script>
-        // これだとサーバーに送信できる
-
         // ーーーーーーーーーーーーーーーーーーーーーーーー
-        document.addEventListener('DOMContentLoaded', function () {
-    const itemName = document.getElementById('item-name-content');
-    const toggleLink = document.getElementById('toggle-text');
-    const maxLength = 25;
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemName = document.getElementById('item-name-content');
+            const toggleLink = document.getElementById('toggle-text');
+            const maxLength = 25;
 
-    if (itemName.textContent.length > maxLength) {
-        // テキストが制限文字数を超える場合、テキストを短縮して表示
-        itemName.textContent = itemName.textContent.substring(0, maxLength) + '...';
+            if (itemName.textContent.length > maxLength) {
+                // テキストが制限文字数を超える場合、テキストを短縮して表示
+                itemName.textContent = itemName.textContent.substring(0, maxLength) + '...';
 
-    } else {
-        // 制限文字数を超えない場合、"..."を非表示にする
-        toggleLink.style.display = 'none';
-    }
-});
+            } else {
+                // 制限文字数を超えない場合、"..."を非表示にする
+                toggleLink.style.display = 'none';
+            }
+        });
 
 
 
@@ -158,7 +150,7 @@
                             console.error('エラーが発生しました:', error);
                         });
 
-                    // ... その他のコード ...
+
                 }
             });
         });
